@@ -83,6 +83,3 @@ DerivedData/
 .packages/
 .xcworkspace/
 .DS_Store
-
-# API Keys
-[YOUR_API_KEY]
