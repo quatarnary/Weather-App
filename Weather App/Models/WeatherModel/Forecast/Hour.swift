@@ -67,3 +67,7 @@ struct Hour: Codable {
         case diffRAD = "diff_rad"
     }
 }
+
+extension Hour: Identifiable {
+    var id: UUID { UUID() }
+}
