@@ -19,7 +19,7 @@ struct Current: Codable {
     let windDir: WindDir?
     let pressureMB: Int?
     let pressureIn: Double?
-    let precipMm, precipIn, humidity, cloud: Int?
+    let precipMm, precipIn, humidity, cloud: Double?
     let feelslikeC: Int?
     let feelslikeF: Double?
     let visKM, visMiles, uv: Int?
