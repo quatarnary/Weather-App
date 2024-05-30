@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		685182952C08AA07003A5739 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685182942C08AA07003A5739 /* MainMenuView.swift */; };
+		685182992C08AD4A003A5739 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685182982C08AD4A003A5739 /* LocationCardView.swift */; };
 		68C3A4D92BFE330000E964B2 /* Weather_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A4D82BFE330000E964B2 /* Weather_AppApp.swift */; };
 		68C3A4DB2BFE330000E964B2 /* LocationWeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A4DA2BFE330000E964B2 /* LocationWeatherDataView.swift */; };
 		68C3A4DD2BFE330100E964B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C3A4DC2BFE330100E964B2 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		685182942C08AA07003A5739 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		685182982C08AD4A003A5739 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		68C3A4D52BFE330000E964B2 /* Weather App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C3A4D82BFE330000E964B2 /* Weather_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_AppApp.swift; sourceTree = "<group>"; };
 		68C3A4DA2BFE330000E964B2 /* LocationWeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeatherDataView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		685182932C08A9FB003A5739 /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
+				685182982C08AD4A003A5739 /* LocationCardView.swift */,
 			);
 			path = HelperViews;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				68C3A52A2C00BDEF00E964B2 /* Hour.swift in Sources */,
 				68C3A5162C00B62100E964B2 /* Location.swift in Sources */,
 				68C3A5362C04AF9900E964B2 /* TestData.swift in Sources */,
+				685182992C08AD4A003A5739 /* LocationCardView.swift in Sources */,
 				68C3A50A2BFF84F400E964B2 /* WeatherClient.swift in Sources */,
 				685182952C08AA07003A5739 /* MainMenuView.swift in Sources */,
 				68C3A5142C00B60300E964B2 /* WeatherResponse.swift in Sources */,
