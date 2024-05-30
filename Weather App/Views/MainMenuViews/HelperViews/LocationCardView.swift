@@ -9,7 +9,27 @@ import SwiftUI
 
 struct LocationCardView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            VStack {
+                Text("Location Name")
+                Text("Time")
+                Spacer()
+                Text("Condition")
+            }
+            Spacer()
+            VStack {
+                Text("Current Degree°")
+                Spacer()
+                HStack {
+                    Text("H: degree°")
+                    Text("L: degree°")
+                }
+            }
+        }
+        .frame(height: 100)
+        .padding(4)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 10.0))
     }
 }
 
