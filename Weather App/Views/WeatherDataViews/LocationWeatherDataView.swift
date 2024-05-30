@@ -34,8 +34,6 @@ struct LocationWeatherDataView: View {
                 .padding(.horizontal)
             Spacer()
         }
-        .background(.ultraThinMaterial)
-        .background(LinearGradient(colors: [.green, .teal], startPoint: .bottom, endPoint: .top))
     }
 }
 
