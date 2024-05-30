@@ -16,22 +16,10 @@ struct MainView: View {
         NavigationStack {
             TabView(selection: $selectionTabView) {
                 Text("Current Location Page")
-                    .badge("!")
-                    .tabItem {
-                        Label("Locations", systemImage: "tray.and.arrow.up.fill")
-                    }
                     .tag(0)
                 LocationWeatherDataView(weather: weather)
-                    .badge(1)
-                    .tabItem {
-                        Label("Current Location", systemImage: "tray.and.arrow.down.fill")
-                    }
                     .tag(1)
                 Text("My Locations 2nd Item Page")
-                    .badge("!")
-                    .tabItem {
-                        Label("Settings", systemImage: "person.crop.circle.fill")
-                    }
                     .tag(2)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -52,8 +40,9 @@ struct MainView: View {
                         Spacer()
                         HStack {
                             ForEach(0..<3) { index in
-                                Circle()
-                                    .frame(width: 8, height: 8)
+                                Image(systemName: index == 0 ? "location.fill" : "circle.fill")
+                                    .resizable()
+                                    .frame(width: 13, height: 13)
                                     .foregroundColor(index == self.selectionTabView ? .accentColor : .white)
                                     .onTapGesture {
                                         if index < self.selectionTabView {
