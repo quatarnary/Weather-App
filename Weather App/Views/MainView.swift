@@ -67,7 +67,7 @@ struct MainView: View {
                         }
                         Spacer()
                         NavigationLink("Settings") {
-                            WeatherSummaryView(weather: weather)
+                            MainMenuView()
                         }
                     }
                 }
