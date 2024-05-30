@@ -29,6 +29,7 @@ struct MainMenuView: View {
                     }
                 }
             }
+            Spacer()
         }
     }
 }
