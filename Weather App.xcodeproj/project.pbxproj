@@ -187,10 +187,7 @@
 		68C3A5072BFF84CE00E964B2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				68C3A4DA2BFE330000E964B2 /* LocationWeatherDataView.swift */,
-				68C3A5392C04CE0300E964B2 /* WeatherSummaryView.swift */,
-				68C3A53B2C04CE2100E964B2 /* HourlyForecastView.swift */,
-				68C3A53D2C04CE3D00E964B2 /* DailyForecastView.swift */,
+				68C3A5412C07863300E964B2 /* WeatherDataViews */,
 				68C3A53F2C076CB900E964B2 /* MainView.swift */,
 			);
 			path = Views;
@@ -263,6 +260,25 @@
 				68C3A52E2C00CC8400E964B2 /* CustomErrors.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		68C3A5412C07863300E964B2 /* WeatherDataViews */ = {
+			isa = PBXGroup;
+			children = (
+				68C3A5422C07864300E964B2 /* HelperViews */,
+				68C3A4DA2BFE330000E964B2 /* LocationWeatherDataView.swift */,
+			);
+			path = WeatherDataViews;
+			sourceTree = "<group>";
+		};
+		68C3A5422C07864300E964B2 /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				68C3A5392C04CE0300E964B2 /* WeatherSummaryView.swift */,
+				68C3A53B2C04CE2100E964B2 /* HourlyForecastView.swift */,
+				68C3A53D2C04CE3D00E964B2 /* DailyForecastView.swift */,
+			);
+			path = HelperViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
