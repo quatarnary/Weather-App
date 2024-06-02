@@ -10,6 +10,7 @@
 		685182952C08AA07003A5739 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685182942C08AA07003A5739 /* MainMenuView.swift */; };
 		685182992C08AD4A003A5739 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685182982C08AD4A003A5739 /* LocationCardView.swift */; };
 		6851829B2C08B88A003A5739 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851829A2C08B88A003A5739 /* SettingsView.swift */; };
+		6851829E2C0CE108003A5739 /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851829D2C0CE108003A5739 /* UserLocationManager.swift */; };
 		68C3A4D92BFE330000E964B2 /* Weather_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A4D82BFE330000E964B2 /* Weather_AppApp.swift */; };
 		68C3A4DB2BFE330000E964B2 /* LocationWeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A4DA2BFE330000E964B2 /* LocationWeatherDataView.swift */; };
 		68C3A4DD2BFE330100E964B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C3A4DC2BFE330100E964B2 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		685182942C08AA07003A5739 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		685182982C08AD4A003A5739 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		6851829A2C08B88A003A5739 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6851829D2C0CE108003A5739 /* UserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		68C3A4D52BFE330000E964B2 /* Weather App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C3A4D82BFE330000E964B2 /* Weather_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_AppApp.swift; sourceTree = "<group>"; };
 		68C3A4DA2BFE330000E964B2 /* LocationWeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeatherDataView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,14 @@
 				6851829A2C08B88A003A5739 /* SettingsView.swift */,
 			);
 			path = HelperViews;
+			sourceTree = "<group>";
+		};
+		6851829C2C0CE0E7003A5739 /* UserLocation */ = {
+			isa = PBXGroup;
+			children = (
+				6851829D2C0CE108003A5739 /* UserLocationManager.swift */,
+			);
+			path = UserLocation;
 			sourceTree = "<group>";
 		};
 		68C3A4CC2BFE330000E964B2 = {
@@ -221,6 +231,7 @@
 		68C3A5082BFF84D400E964B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6851829C2C0CE0E7003A5739 /* UserLocation */,
 				68C3A5112C00B59F00E964B2 /* WeatherModel */,
 				68C3A50B2BFF852C00E964B2 /* WeatherAPI.swift */,
 				68C3A50D2BFF86C600E964B2 /* HTTPDataDownloader.swift */,
@@ -441,6 +452,7 @@
 			files = (
 				68C3A5282C00BD9700E964B2 /* Day.swift in Sources */,
 				68C3A50C2BFF852C00E964B2 /* WeatherAPI.swift in Sources */,
+				6851829E2C0CE108003A5739 /* UserLocationManager.swift in Sources */,
 				68C3A5262C00BD7B00E964B2 /* Astro.swift in Sources */,
 				68C3A51A2C00BB0900E964B2 /* WindDir.swift in Sources */,
 				68C3A5182C00BAD900E964B2 /* Condition.swift in Sources */,
@@ -629,6 +641,7 @@
 				DEVELOPMENT_TEAM = 4R6949GRZ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location information will be used to show the Weather data for your current location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -658,6 +671,7 @@
 				DEVELOPMENT_TEAM = 4R6949GRZ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location information will be used to show the Weather data for your current location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

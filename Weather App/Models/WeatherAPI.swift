@@ -21,6 +21,10 @@ struct WeatherAPI {
     static func getKey() -> String {
         return NSDictionary(contentsOf: keyURL!)!["WEATHER_API_KEY"] as! String
     }
+    
+    static func currentLocationUrl(latitude: Double, longitude: Double) -> URL {
+        return URL(string: "https://api.weatherapi.com/v1/forecast.json?key=\(WeatherAPI.getKey())&q=\(latitude),\(longitude)&days=3&aqi=yes&alerts=no")!
+    }
 }
 
 

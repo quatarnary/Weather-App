@@ -6,21 +6,45 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MainView: View {
     @State var weather: WeatherResponse?
-    @State var selectionTabView: Int = 1
+    @State var currentLocationWeather: WeatherResponse?
+    
+    @State var selectionTabView: Int = 0
     @State var isPresented = false
     
     var weatherClient = WeatherClient()
     @State var status = "Fetching Data.."
     
+    @ObservedObject var locationManager = UserLocationManager()
+    
     var body: some View {
         NavigationStack {
             TabView(selection: $selectionTabView) {
-                if weather != nil {
-                    Text("we got the weather")
+                if currentLocationWeather != nil && weather != nil {
+                    LocationWeatherDataView(weather: $currentLocationWeather)
                         .tag(0)
+                    LocationWeatherDataView(weather: $weather)
+                        .tag(1)
+                    Text("My Locations 2nd Item Page")
+                        .tag(2)
+                } else if weather != nil {
+                    List {
+                        Text("NO DATA FOR CURRENT LOCATION")
+                            .tag(0)
+                    }
+                    .refreshable() {
+                        do {
+                            let location = locationManager.userLocation
+                            let latitude = location?.latitude ?? 0
+                            let longitude = location?.longitude ?? 0
+                            currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: latitude, longitude: longitude)
+                        } catch {
+                            status = "current location error: \(error)"
+                        }
+                    }
                     LocationWeatherDataView(weather: $weather)
                         .tag(1)
                     Text("My Locations 2nd Item Page")
@@ -54,8 +78,8 @@ struct MainView: View {
                                     .foregroundColor(index == self.selectionTabView ? .accentColor : .white)
                                     .onTapGesture {
                                         if index < self.selectionTabView {
-                                                self.selectionTabView -= 1
-                                            }
+                                            self.selectionTabView -= 1
+                                        }
                                         if index > self.selectionTabView {
                                             self.selectionTabView += 1
                                         }
@@ -77,6 +101,14 @@ struct MainView: View {
             } catch {
                 status = "\(error)"
             }
+            //            do {
+            //                let location = locationManager.userLocation
+            //                let latitude = location?.latitude ?? 0
+            //                let longitude = location?.longitude ?? 0
+            //                currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: latitude, longitude: longitude)
+            //            } catch {
+            //                status = "current location error: \(error)"
+            //            }
         }
     }
 }
