@@ -10,19 +10,19 @@ import Foundation
 struct Current: Codable {
     let lastUpdatedEpoch: Int?
     let lastUpdated: String?
-    let tempC: Int?
+    let tempC: Double?
     let tempF: Double?
-    let isDay: Int?
+    let isDay: Double?
     let condition: Condition?
     let windMph, windKph: Double?
-    let windDegree: Int?
+    let windDegree: Double?
     let windDir: WindDir?
-    let pressureMB: Int?
+    let pressureMB: Double?
     let pressureIn: Double?
     let precipMm, precipIn, humidity, cloud: Double?
-    let feelslikeC: Int?
+    let feelslikeC: Double?
     let feelslikeF: Double?
-    let visKM, visMiles, uv: Int?
+    let visKM, visMiles, uv: Double?
     let gustMph, gustKph: Double?
     let airQuality: [String: Double]?
     

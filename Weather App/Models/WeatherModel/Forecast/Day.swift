@@ -11,12 +11,12 @@ struct Day: Codable {
     let maxtempC, maxtempF, mintempC, mintempF: Double?
     let avgtempC, avgtempF, maxwindMph, maxwindKph: Double?
     let totalprecipMm, totalprecipIn: Double?
-    let totalsnowCM: Int?
+    let totalsnowCM: Double?
     let avgvisKM: Double?
-    let avgvisMiles, avghumidity, dailyWillItRain, dailyChanceOfRain: Int?
-    let dailyWillItSnow, dailyChanceOfSnow: Int?
+    let avgvisMiles, avghumidity, dailyWillItRain, dailyChanceOfRain: Double?
+    let dailyWillItSnow, dailyChanceOfSnow: Double?
     let condition: Condition?
-    let uv: Int?
+    let uv: Double?
     let airQuality: [String: Double]?
     
     enum CodingKeys: String, CodingKey {
