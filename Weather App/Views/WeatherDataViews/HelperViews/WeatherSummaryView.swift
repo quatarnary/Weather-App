@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherSummaryView: View {
-    @State var weather: WeatherResponse?
+    @Binding var weather: WeatherResponse?
     var body: some View {
         if weather != nil {
             VStack {
@@ -31,11 +31,11 @@ struct WeatherSummaryView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    var sampleWeatherData: WeatherResponse?
+    @State var sampleWeatherData: WeatherResponse?
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return WeatherSummaryView(weather: sampleWeatherData)
+    return WeatherSummaryView(weather: $sampleWeatherData)
 }

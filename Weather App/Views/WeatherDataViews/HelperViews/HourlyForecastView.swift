@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HourlyForecastView: View {
-    @State var weather: WeatherResponse?
+    @Binding var weather: WeatherResponse?
     //    @State var time: String?
     var dateFormatter: DateFormatter {
         let dummyFormatter = DateFormatter()
@@ -39,11 +39,11 @@ struct HourlyForecastView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    var sampleWeatherData: WeatherResponse?
+    @State var sampleWeatherData: WeatherResponse?
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return HourlyForecastView(weather: sampleWeatherData)
+    return HourlyForecastView(weather: $sampleWeatherData)
 }

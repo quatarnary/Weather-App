@@ -8,26 +8,25 @@
 import SwiftUI
 
 struct LocationWeatherDataView: View {
-    @State var weather: WeatherResponse?
-    var weatherClient = WeatherClient()
+    @Binding var weather: WeatherResponse?
     @State var status = "Fetching Data.."
     
     var body: some View {
         VStack {
             Spacer()
-            WeatherSummaryView(weather: weather)
+            WeatherSummaryView(weather: $weather)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical)
                 .background(.ultraThinMaterial)
                 .padding(.horizontal)
             Spacer()
-            HourlyForecastView(weather: weather)
+            HourlyForecastView(weather: $weather)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical)
                 .background(.ultraThinMaterial)
                 .padding(.horizontal)
             Spacer()
-            DailyForecastView(weather: weather)
+            DailyForecastView(weather: $weather)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical)
                 .background(.ultraThinMaterial)
@@ -39,15 +38,14 @@ struct LocationWeatherDataView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
+    @State var sampleWeatherData: WeatherResponse?
     do {
-        var sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
-        return LocationWeatherDataView(weather: sampleWeatherData)
+        sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
-        return LocationWeatherDataView()
     }
+    return LocationWeatherDataView(weather: $sampleWeatherData)
 }
-
 
 /*
  VStack {

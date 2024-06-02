@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DailyForecastView: View {
-    @State var weather: WeatherResponse?
+    @Binding var weather: WeatherResponse?
     private var forecastDayCount: Int {
         weather?.forecast?.forecastday?.count ?? -999
     }
@@ -43,11 +43,11 @@ struct DailyForecastView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    var sampleWeatherData: WeatherResponse?
+    @State var sampleWeatherData: WeatherResponse?
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return DailyForecastView(weather: sampleWeatherData)
+    return DailyForecastView(weather: $sampleWeatherData)
 }
