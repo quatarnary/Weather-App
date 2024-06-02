@@ -12,15 +12,23 @@ struct MainView: View {
     @State var selectionTabView: Int = 1
     @State var isPresented = false
     
+    var weatherClient = WeatherClient()
+    @State var status = "Fetching Data.."
+    
     var body: some View {
         NavigationStack {
             TabView(selection: $selectionTabView) {
-                Text("Current Location Page")
-                    .tag(0)
-                LocationWeatherDataView(weather: weather)
-                    .tag(1)
-                Text("My Locations 2nd Item Page")
-                    .tag(2)
+                if weather != nil {
+                    Text("we got the weather")
+                        .tag(0)
+                    LocationWeatherDataView(weather: $weather)
+                        .tag(1)
+                    Text("My Locations 2nd Item Page")
+                        .tag(2)
+                } else {
+                    Text("\(status)")
+                        .tag(0)
+                }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .background(.ultraThinMaterial)
@@ -60,6 +68,14 @@ struct MainView: View {
                         }
                     }
                 }
+            }
+        }
+        .task {
+            //            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            do {
+                weather = try await weatherClient.getData()
+            } catch {
+                status = "\(error)"
             }
         }
     }
