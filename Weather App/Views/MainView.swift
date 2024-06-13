@@ -9,6 +9,12 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
+    // TODO: take the favoriteLocations from @main and re-arrange the main view accordingly
+    // to download all the favotite locations at the same time using different tasks
+    // also maybe try to get the current location also @main
+    // or maybe even download all the data @main
+    // also please for god sake start removing the optional values
+    @Binding var favoriteLocations: [Location]
     @State var weather: WeatherResponse?
     @State var currentLocationWeather: WeatherResponse?
     
@@ -96,19 +102,13 @@ struct MainView: View {
         }
         .task {
             //            try? await Task.sleep(nanoseconds: 3_000_000_000)
+//            await GetCurrrentLocationWeather()
             do {
+                // TODO: getData should take list
                 weather = try await weatherClient.getData()
             } catch {
                 status = "\(error)"
             }
-            //            do {
-            //                let location = locationManager.userLocation
-            //                let latitude = location?.latitude ?? 0
-            //                let longitude = location?.longitude ?? 0
-            //                currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: latitude, longitude: longitude)
-            //            } catch {
-            //                status = "current location error: \(error)"
-            //            }
         }
     }
 }
@@ -116,10 +116,11 @@ struct MainView: View {
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
     var sampleWeatherData: WeatherResponse?
+    @State var favoriteLocations: [Location] = []
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return MainView(weather: sampleWeatherData)
+    return MainView(favoriteLocations: $favoriteLocations, weather: sampleWeatherData)
 }
