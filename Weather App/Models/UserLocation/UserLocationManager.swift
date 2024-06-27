@@ -8,6 +8,12 @@
 import Foundation
 import CoreLocation
 
+extension CLLocationCoordinate2D: Equatable {}
+
+public func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+}
+
 final class UserLocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var userLocation: CLLocationCoordinate2D?
     private var locationManager = CLLocationManager()
@@ -21,20 +27,27 @@ final class UserLocationManager: NSObject, ObservableObject, CLLocationManagerDe
         self.locationManager.startUpdatingLocation()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        // Update published variable with user location coordinates
-        userLocation = location.coordinate
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse || status == .authorizedAlways {
-            // If authorization status has changed to authorized
-            // start updating location
-            locationManager.startUpdatingLocation()
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let auth = manager.authorizationStatus
+        if  auth == .authorizedAlways || auth == .authorizedWhenInUse {
+            userLocation = locationManager.location?.coordinate
         }
     }
-    
+}
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let location = locations.last else { return }
+//        // Update published variable with user location coordinates
+//        userLocation = location.coordinate
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        if status == .authorizedWhenInUse || status == .authorizedAlways {
+//            // If authorization status has changed to authorized
+//            // start updating location
+//            locationManager.startUpdatingLocation()
+//        }
+//    }
+//}
 //    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
 //        // Handle changes in location authorization
 //        let previousAuthorizationStatus = manager.authorizationStatus
@@ -43,7 +56,7 @@ final class UserLocationManager: NSObject, ObservableObject, CLLocationManagerDe
 //            checkLocationAuthorization()
 //        }
 //    }
-//    
+//
 //    func checkIfLocationIsEnabled() {
 //        if CLLocationManager.locationServicesEnabled() {
 //            locationManager = CLLocationManager()
@@ -53,12 +66,12 @@ final class UserLocationManager: NSObject, ObservableObject, CLLocationManagerDe
 //            print("Show an alert letting them know this is off")
 //        }
 //    }
-//    
+//
 //    private func checkLocationAuthorization() {
 //        guard let location = locationManager else {
 //            return
 //        }
-//        
+//
 //        switch location.authorizationStatus {
 //        case .notDetermined:
 //            print("Location authorization is not determined.")
@@ -74,4 +87,4 @@ final class UserLocationManager: NSObject, ObservableObject, CLLocationManagerDe
 //            break
 //        }
 //    }
-}
+//}
