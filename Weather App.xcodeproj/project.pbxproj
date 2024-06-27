@@ -41,6 +41,7 @@
 		68C3A53C2C04CE2100E964B2 /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A53B2C04CE2100E964B2 /* HourlyForecastView.swift */; };
 		68C3A53E2C04CE3D00E964B2 /* DailyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A53D2C04CE3D00E964B2 /* DailyForecastView.swift */; };
 		68C3A5402C076CB900E964B2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C3A53F2C076CB900E964B2 /* MainView.swift */; };
+		68DB99982C25DDD800D6FCB2 /* LocationTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB99972C25DDD800D6FCB2 /* LocationTestData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		68C3A53B2C04CE2100E964B2 /* HourlyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastView.swift; sourceTree = "<group>"; };
 		68C3A53D2C04CE3D00E964B2 /* DailyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastView.swift; sourceTree = "<group>"; };
 		68C3A53F2C076CB900E964B2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		68DB99972C25DDD800D6FCB2 /* LocationTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTestData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			children = (
 				68C3A4DF2BFE330100E964B2 /* Preview Assets.xcassets */,
 				68C3A5352C04AF9900E964B2 /* TestData.swift */,
+				68DB99972C25DDD800D6FCB2 /* LocationTestData.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				687BE2DD2C0D1725007041A4 /* UserFavoriteLocations.swift in Sources */,
 				685182952C08AA07003A5739 /* MainMenuView.swift in Sources */,
 				68C3A5142C00B60300E964B2 /* WeatherResponse.swift in Sources */,
+				68DB99982C25DDD800D6FCB2 /* LocationTestData.swift in Sources */,
 				68C3A5102C00B57100E964B2 /* Current.swift in Sources */,
 				68C3A53E2C04CE3D00E964B2 /* DailyForecastView.swift in Sources */,
 				68C3A53A2C04CE0300E964B2 /* WeatherSummaryView.swift in Sources */,

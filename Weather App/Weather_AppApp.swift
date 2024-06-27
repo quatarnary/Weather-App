@@ -9,19 +9,36 @@ import SwiftUI
 
 @main
 struct Weather_AppApp: App {
-    @StateObject private var favoriteLocations = UserFavoriteLocations()
-    @State var dummyFavoriteLocations: [Location] = []
+    @StateObject private var store = UserFavoriteLocations()
     
     var body: some Scene {
         WindowGroup {
-            MainView(favoriteLocations: $dummyFavoriteLocations)
-                .task {
+            MainView(favoriteLocations: $store.favoriteLocations){
+                Task {
                     do {
-                        try await favoriteLocations.load()
+                        try await store.save(locations: store.favoriteLocations)
                     } catch {
                         fatalError(error.localizedDescription)
                     }
                 }
+            }
+            .task {
+                do {
+                    try await store.load()
+#if DEBUG
+                    if store.favoriteLocations.isEmpty {
+                        do {
+                            store.favoriteLocations = try JSONDecoder().decode([Location].self, from: locationTestData)
+                        } catch {
+                            print("locations error")
+                            print(error)
+                        }
+                    }
+#endif
+                } catch {
+                    fatalError(error.localizedDescription)
+                }
+            }
         }
     }
 }

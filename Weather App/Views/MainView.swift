@@ -18,6 +18,9 @@ struct MainView: View {
     @State var weather: WeatherResponse?
     @State var currentLocationWeather: WeatherResponse?
     
+    @Environment(\.scenePhase) private var scenePhase
+    let saveAction: ()->Void
+    
     @State var selectionTabView: Int = 0
     @State var isPresented = false
     
@@ -29,35 +32,16 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectionTabView) {
-                if currentLocationWeather != nil && weather != nil {
+                if currentLocationWeather != nil {
                     LocationWeatherDataView(weather: $currentLocationWeather)
                         .tag(0)
-                    LocationWeatherDataView(weather: $weather)
-                        .tag(1)
-                    Text("My Locations 2nd Item Page")
-                        .tag(2)
-                } else if weather != nil {
-                    List {
-                        Text("NO DATA FOR CURRENT LOCATION")
-                            .tag(0)
-                    }
-                    .refreshable() {
-                        do {
-                            let location = locationManager.userLocation
-                            let latitude = location?.latitude ?? 0
-                            let longitude = location?.longitude ?? 0
-                            currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: latitude, longitude: longitude)
-                        } catch {
-                            status = "current location error: \(error)"
-                        }
-                    }
-                    LocationWeatherDataView(weather: $weather)
-                        .tag(1)
-                    Text("My Locations 2nd Item Page")
-                        .tag(2)
                 } else {
-                    Text("\(status)")
+                    Text("\(status) current location")
                         .tag(0)
+                }
+                ForEach(Array(favoriteLocations.enumerated()), id: \.element.id) { index, location in
+                    LocationWeatherDataView(weather: $weather)
+                        .tag(index + 1)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -77,7 +61,7 @@ struct MainView: View {
                         })
                         Spacer()
                         HStack {
-                            ForEach(0..<3) { index in
+                            ForEach(0..<favoriteLocations.count + 1, id: \.self) { index in
                                 Image(systemName: index == 0 ? "location.fill" : "circle.fill")
                                     .resizable()
                                     .frame(width: 13, height: 13)
@@ -101,8 +85,6 @@ struct MainView: View {
             }
         }
         .task {
-            //            try? await Task.sleep(nanoseconds: 3_000_000_000)
-//            await GetCurrrentLocationWeather()
             do {
                 // TODO: getData should take list
                 weather = try await weatherClient.getData()
@@ -110,17 +92,44 @@ struct MainView: View {
                 status = "\(error)"
             }
         }
+        .onChange(of: scenePhase) {
+            if scenePhase == .inactive { saveAction() }
+        }
     }
 }
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
+    var sampleJSONFavoriteData = locationTestData
     var sampleWeatherData: WeatherResponse?
-    @State var favoriteLocations: [Location] = []
+    var favoriteLocations: [Location] = []
+    
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
+        print("weather data error")
         print(error)
     }
-    return MainView(favoriteLocations: $favoriteLocations, weather: sampleWeatherData)
+    do {
+        favoriteLocations = try JSONDecoder().decode([Location].self, from: sampleJSONFavoriteData)
+    } catch {
+        print("locations error")
+        print(error)
+    }
+    return MainView(favoriteLocations: .constant(favoriteLocations), weather: sampleWeatherData, currentLocationWeather: sampleWeatherData, saveAction: {})
 }
+
+
+
+/*
+ 
+ do {
+ let location = locationManager.userLocation
+ let latitude = location?.latitude ?? 0
+ let longitude = location?.longitude ?? 0
+ currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: latitude, longitude: longitude)
+ } catch {
+ status = "current location error: \(error)"
+ }
+ 
+ */
