@@ -27,7 +27,7 @@ struct MainView: View {
     var weatherClient = WeatherClient()
     @State var status = "Fetching Data.."
     
-    @ObservedObject var locationManager = UserLocationManager()
+    @StateObject var locationManager = UserLocationManager()
     
     var body: some View {
         NavigationStack {
@@ -94,6 +94,16 @@ struct MainView: View {
         }
         .onChange(of: scenePhase) {
             if scenePhase == .inactive { saveAction() }
+        }
+        .onChange(of: locationManager.userLocation) {
+//            print("getting data for user location")
+            Task{
+                do {
+                    currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: locationManager.userLocation?.latitude ?? 0, longitude: locationManager.userLocation?.longitude ?? 0)
+                } catch {
+                    status = "\(error)"
+                }
+            }
         }
     }
 }
