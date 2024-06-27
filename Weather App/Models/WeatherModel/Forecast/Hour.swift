@@ -14,17 +14,17 @@ struct Hour: Codable {
     let isDay: Int?
     let condition: Condition?
     let windMph, windKph: Double?
-    let windDegree: Int?
+    let windDegree: Double?
     let windDir: WindDir?
-    let pressureMB: Int?
+    let pressureMB: Double?
     let pressureIn, precipMm, precipIn: Double?
-    let snowCM, humidity, cloud: Int?
+    let snowCM, humidity, cloud: Double?
     let feelslikeC, feelslikeF, windchillC, windchillF: Double?
     let heatindexC, heatindexF, dewpointC, dewpointF: Double?
-    let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Int?
-    let visKM, visMiles: Int?
+    let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Double?
+    let visKM, visMiles: Double?
     let gustMph, gustKph: Double?
-    let uv: Int?
+    let uv: Double?
     let airQuality: [String: Double]?
     let shortRAD, diffRAD: Double?
     
@@ -66,4 +66,8 @@ struct Hour: Codable {
         case shortRAD = "short_rad"
         case diffRAD = "diff_rad"
     }
+}
+
+extension Hour: Identifiable {
+    var id: UUID { UUID() }
 }

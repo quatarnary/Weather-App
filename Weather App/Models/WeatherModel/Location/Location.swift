@@ -21,3 +21,7 @@ struct Location: Codable {
         case localtime
     }
 }
+
+extension Location: Identifiable {
+    var id: UUID { UUID() }
+}

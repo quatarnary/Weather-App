@@ -20,3 +20,7 @@ struct Forecastday: Codable {
         case day, astro, hour
     }
 }
+
+extension Forecastday: Identifiable {
+    var id: UUID { UUID() }
+}
