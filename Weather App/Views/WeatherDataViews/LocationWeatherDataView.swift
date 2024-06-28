@@ -38,13 +38,13 @@ struct LocationWeatherDataView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    @State var sampleWeatherData: WeatherResponse?
+    var sampleWeatherData: WeatherResponse?
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return LocationWeatherDataView(weather: $sampleWeatherData)
+    return LocationWeatherDataView(weather: .constant(sampleWeatherData))
 }
 
 /*
