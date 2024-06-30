@@ -9,14 +9,11 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
-    // TODO: take the favoriteLocations from @main and re-arrange the main view accordingly
-    // to download all the favotite locations at the same time using different tasks
-    // also maybe try to get the current location also @main
+    // TODO: maybe try to get the current location also @main
     // or maybe even download all the data @main
     // also please for god sake start removing the optional values
     @Binding var favoriteLocations: [Location]
-    @State var weather: WeatherResponse?
-    @State var currentLocationWeather: WeatherResponse?
+    @State var currentLocationWeather: WeatherResponse = WeatherResponse()
     
     @Environment(\.scenePhase) private var scenePhase
     let saveAction: ()->Void
@@ -24,7 +21,11 @@ struct MainView: View {
     @State var selectionTabView: Int = 0
     @State var isPresented = false
     
-    var weatherClient = WeatherClient()
+    var weatherClient: WeatherClient {
+        WeatherClient(favoriteLocations: favoriteLocations)
+    }
+    @State var favoriteLocationWeatherResponses: [WeatherResponse] = []
+    
     @State var status = "Fetching Data.."
     
     @StateObject var locationManager = UserLocationManager()
@@ -32,16 +33,18 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectionTabView) {
-                if currentLocationWeather != nil {
+                if currentLocationWeather.location != nil {
                     LocationWeatherDataView(weather: $currentLocationWeather)
                         .tag(0)
                 } else {
                     Text("\(status) current location")
                         .tag(0)
                 }
-                ForEach(Array(favoriteLocations.enumerated()), id: \.element.id) { index, location in
-                    LocationWeatherDataView(weather: $weather)
-                        .tag(index + 1)
+                if !favoriteLocationWeatherResponses.isEmpty {
+                    ForEach(Array(zip(favoriteLocationWeatherResponses.indices, favoriteLocationWeatherResponses)), id: \.0) { index, item in
+                        LocationWeatherDataView(weather: $favoriteLocationWeatherResponses[index])
+                            .tag(index + 1)
+                    }
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -49,24 +52,27 @@ struct MainView: View {
             .background(LinearGradient(colors: [.green, .teal], startPoint: .bottom, endPoint: .top))
             .toolbar(content: toolbarContent)
         }
-        .task {
-            do {
-                // TODO: getData should take list
-                weather = try await weatherClient.getData()
-            } catch {
-                status = "\(error)"
+        .onChange(of: favoriteLocations.count) {
+            Task {
+                do {
+                    favoriteLocationWeatherResponses = try await weatherClient.weatherResponses
+                } catch {
+                    print("\(error)")
+                }
             }
         }
         .onChange(of: scenePhase) {
             if scenePhase == .inactive { saveAction() }
         }
         .onChange(of: locationManager.userLocation) {
-//            print("getting data for user location")
-            Task{
+            Task {
                 do {
-                    currentLocationWeather = try await weatherClient.getCurrentLocationData(latitude: locationManager.userLocation?.latitude ?? 0, longitude: locationManager.userLocation?.longitude ?? 0)
+                    currentLocationWeather = try await weatherClient.getCurrentLocationData(
+                        latitude: locationManager.userLocation?.latitude ?? 0,
+                        longitude: locationManager.userLocation?.longitude ?? 0
+                    )!
                 } catch {
-                    status = "\(error)"
+                    print("\(error)")
                 }
             }
         }
@@ -76,7 +82,7 @@ struct MainView: View {
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
     var sampleJSONFavoriteData = locationTestData
-    var sampleWeatherData: WeatherResponse?
+    var sampleWeatherData = WeatherResponse()
     var favoriteLocations: [Location] = []
     
     do {
@@ -91,7 +97,7 @@ struct MainView: View {
         print("locations error")
         print(error)
     }
-    return MainView(favoriteLocations: .constant(favoriteLocations), weather: sampleWeatherData, currentLocationWeather: sampleWeatherData, saveAction: {})
+    return MainView(favoriteLocations: .constant(favoriteLocations), currentLocationWeather: sampleWeatherData, saveAction: {})
 }
 
 

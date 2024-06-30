@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LocationWeatherDataView: View {
-    @Binding var weather: WeatherResponse?
+    @Binding var weather: WeatherResponse
     @State var status = "Fetching Data.."
     
     var body: some View {
@@ -38,7 +38,7 @@ struct LocationWeatherDataView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    var sampleWeatherData: WeatherResponse?
+    var sampleWeatherData = WeatherResponse()
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
