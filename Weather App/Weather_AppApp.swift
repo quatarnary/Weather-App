@@ -13,7 +13,7 @@ struct Weather_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView(favoriteLocations: $store.favoriteLocations){
+            MainView(favoriteLocations: $store.favoriteLocations) {
                 Task {
                     do {
                         try await store.save(locations: store.favoriteLocations)

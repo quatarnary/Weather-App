@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct DailyForecastView: View {
-    @Binding var weather: WeatherResponse?
+    @Binding var weather: WeatherResponse
     private var forecastDayCount: Int {
-        weather?.forecast?.forecastday?.count ?? -999
+        weather.forecast?.forecastday?.count ?? -999
     }
     private var dateFormatter: DateFormatter {
         let dummyFormatter = DateFormatter()
@@ -21,7 +21,7 @@ struct DailyForecastView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(forecastDayCount) day forecast")
-            ForEach((weather?.forecast?.forecastday)!) { forecastday in
+            ForEach((weather.forecast?.forecastday)!) { forecastday in
                 let day = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(forecastday.dateEpoch!)))
                 let today = dateFormatter.string(from: Date())
                 HStack {
@@ -43,11 +43,11 @@ struct DailyForecastView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    @State var sampleWeatherData: WeatherResponse?
+    var sampleWeatherData = WeatherResponse()
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return DailyForecastView(weather: $sampleWeatherData)
+    return DailyForecastView(weather: .constant(sampleWeatherData))
 }

@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct WeatherSummaryView: View {
-    @Binding var weather: WeatherResponse?
+    @Binding var weather: WeatherResponse
     var body: some View {
-        if weather != nil {
-            VStack {
-                Text(weather?.location?.name ?? "No Data")
-                    .font(.title)
-                
-                Text(String(weather?.current?.tempC ?? -999) + "°")
-                    .font(.largeTitle)
-                
-                Text(weather?.current?.condition?.text ?? "No Data")
-                
-                HStack {
-                    Text("H: " + String(weather?.forecast?.forecastday?[0].day?.maxtempC ?? -999) + "°")
-                    Text("L: " + String(weather?.forecast?.forecastday?[0].day?.mintempC ?? -999) + "°")
-                }
+        VStack {
+            Text(weather.location?.name ?? "No Data")
+                .font(.title)
+            
+            Text(String(weather.current?.tempC ?? -999) + "°")
+                .font(.largeTitle)
+            
+            Text(weather.current?.condition?.text ?? "No Data")
+            
+            HStack {
+                Text("H: " + String(weather.forecast?.forecastday?[0].day?.maxtempC ?? -999) + "°")
+                Text("L: " + String(weather.forecast?.forecastday?[0].day?.mintempC ?? -999) + "°")
             }
         }
     }
@@ -31,11 +29,11 @@ struct WeatherSummaryView: View {
 
 #Preview {
     var sampleJSONWeatherData = weatherForecastTestData
-    @State var sampleWeatherData: WeatherResponse?
+    var sampleWeatherData = WeatherResponse()
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
     } catch {
         print(error)
     }
-    return WeatherSummaryView(weather: $sampleWeatherData)
+    return WeatherSummaryView(weather: .constant(sampleWeatherData))
 }

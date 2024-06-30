@@ -9,7 +9,11 @@ import Foundation
 
 // MARK: - WeatherResponse
 struct WeatherResponse: Codable {
-    let location: Location?
-    let current: Current?
-    let forecast: Forecast?
+    var location: Location?
+    var current: Current?
+    var forecast: Forecast?
+}
+
+extension WeatherResponse: Identifiable {
+    var id: UUID { UUID() }
 }
