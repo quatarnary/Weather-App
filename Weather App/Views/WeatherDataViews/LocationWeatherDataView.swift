@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LocationWeatherDataView: View {
     @Binding var weather: WeatherResponse
-    @State var status = "Fetching Data.."
     
     var body: some View {
         VStack {
@@ -46,23 +45,3 @@ struct LocationWeatherDataView: View {
     }
     return LocationWeatherDataView(weather: .constant(sampleWeatherData))
 }
-
-/*
- VStack {
- if weather != nil {
- 
- } else {
- ProgressView()
- Text(status)
- }
- }
- //        .task {
- ////            try? await Task.sleep(nanoseconds: 3_000_000_000)
- //            do {
- //                weather = try await weatherClient.getData()
- //            } catch {
- //                status = "\(error.localizedDescription)"
- //            }
- //        }
- .padding()
- */
