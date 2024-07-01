@@ -9,9 +9,6 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
-    @Environment(\.scenePhase) private var scenePhase
-    let saveAction: ()->Void
-    
     @Binding var favoriteLocations: [Location]
     @State var currentLocationWeatherResponse: WeatherResponse = WeatherResponse()
     @State var favoriteLocationsWeatherResponse: [WeatherResponse] = []
@@ -26,6 +23,9 @@ struct MainView: View {
     @State var isPresented = false
     
     @State var status = "Fetching Data.."
+    
+    @Environment(\.scenePhase) private var scenePhase
+    let saveAction: ()->Void
     
     var body: some View {
         NavigationStack {
@@ -95,5 +95,5 @@ struct MainView: View {
         print(error)
     }
     
-    return MainView(saveAction: {}, favoriteLocations: .constant(favoriteLocations), currentLocationWeatherResponse: sampleWeatherData)
+    return MainView(favoriteLocations: .constant(favoriteLocations), currentLocationWeatherResponse: sampleWeatherData, saveAction: {})
 }
