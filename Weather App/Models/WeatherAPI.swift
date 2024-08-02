@@ -10,11 +10,11 @@ import Foundation
 // MARK: - APIKEY
 struct WeatherAPI {
     
-    #if DEBUG
+//    #if DEBUG
     static var keyURL = Bundle.main.url(forResource: "local", withExtension: "plist")
-    #else
-    static var keyURL = Bundle.main.url(forResource: "API-Keys", withExtension: "plist")
-    #endif
+//    #else
+//    static var keyURL = Bundle.main.url(forResource: "API-Keys", withExtension: "plist")
+//    #endif
     
     static func getKey() -> String {
         return NSDictionary(contentsOf: keyURL!)!["WEATHER_API_KEY"] as! String
