@@ -77,8 +77,8 @@ struct MainView: View {
 }
 
 #Preview {
-    var sampleJSONWeatherData = weatherForecastTestData
-    var sampleJSONFavoriteData = locationTestData
+    let sampleJSONWeatherData = weatherForecastTestData
+    let sampleJSONFavoriteData = locationTestData
     var sampleWeatherData = WeatherResponse()
     var favoriteLocations: [Location] = []
     

@@ -46,7 +46,7 @@ struct DailyForecastView: View {
 }
 
 #Preview {
-    var sampleJSONWeatherData = weatherForecastTestData
+    let sampleJSONWeatherData = weatherForecastTestData
     var sampleWeatherData = WeatherResponse()
     do {
         sampleWeatherData = try JSONDecoder().decode(WeatherResponse.self, from: sampleJSONWeatherData)
